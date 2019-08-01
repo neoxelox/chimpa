@@ -6,11 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chimpa</title>
+    <link rel="shortcut icon"
+        href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/facebook/200/monkey_1f412.png"
+        type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
-</head>
-
+    <script src="https://kit.fontawesome.com/df5ea4d597.js"></script>
+    <script src="js/svg-inject.min.js"></script>
+</head>    
 <body>
+    <!-- foldable container -->
+    <div class="fold-container"></div>
+    <!-- ------------------ -->
+    
+    <!-- grid container -->
+    <div class="grid-container" id="grid">
 
+        <!-- replaced by JS -->
+        <div class="card" id="card">
+            <p>0</p>
+            <img src="ux/card.svg" class="square" onload="SVGInject(this)"> 
+        </div>
+        
+    </div>
+    <!-- -------------- -->
+
+    <!-- scoreboard container -->
+    <div class="score-container"></div>
+    <!-- -------------------- -->
 </body>
-
+<script src="js/app.js"></script>
 </html>

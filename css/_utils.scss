@@ -1,0 +1,180 @@
+// GLOBAL CONFIGURATION
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+$init-colors: ( // 
+    primary: #6200EE,
+    primary-variant: #3700B3,
+    on-primary: #FFFFFF,
+    secondary: #03DAC6,
+    secondary-variant: #018786,
+    on-secondary: #000000,
+    background: #FFFFFF,
+    on-background: #000000,
+    surface: #FFFFFF,
+    on-surface: #000000,
+    error: #B00020,
+    on-error: #FFFFFF //
+);
+
+$desktop-breakpoint: 991px;
+$tablet-breakpoint: 768px;
+$mobile-breakpoint: 480px;
+
+// --------------------
+
+@mixin desktop {
+    @media (min-width: #{$desktop-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{$tablet-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (min-width: #{$mobile-breakpoint}) {
+        @content;
+    }
+}
+
+@function initColors($color-name) {
+    @return map-get($map: $init-colors, $key: $color-name);
+}
+
+$color-palette: ( //
+    primary: initColors(primary),
+    primary-light: lighten(initColors(primary), 40%),
+    primary-dark: darken(initColors(primary), 40%),
+
+    primary-variant: initColors(primary-variant),
+    primary-variant-light: lighten(initColors(primary-variant), 40%),
+    primary-variant-dark: darken(initColors(primary-variant), 40%),
+
+    on-primary: initColors(on-primary),
+    on-primary-light: lighten(initColors(on-primary), 40%),
+    on-primary-dark: darken(initColors(on-primary), 40%),
+
+    secondary: initColors(secondary),
+    secondary-light: lighten(initColors(secondary), 40%),
+    secondary-dark: darken(initColors(secondary), 40%),
+
+    secondary-variant: initColors(secondary-variant),
+    secondary-variant-light: lighten(initColors(secondary-variant), 40%),
+    secondary-variant-dark: darken(initColors(secondary-variant), 40%),
+
+    on-secondary: initColors(on-secondary),
+    on-secondary-light: lighten(initColors(on-secondary), 40%),
+    on-secondary-dark: darken(initColors(on-secondary), 40%),
+
+    background: initColors(background),
+    background-light: lighten(initColors(background), 40%),
+    background-dark: darken(initColors(background), 40%),
+
+    on-background: initColors(on-background),
+    on-background-light: lighten(initColors(on-background), 40%),
+    on-background-dark: darken(initColors(on-background), 40%),
+
+    surface: initColors(surface),
+    surface-light: lighten(initColors(surface), 40%),
+    surface-dark: darken(initColors(surface), 40%),
+
+    on-surface: initColors(on-surface),
+    on-surface-light: lighten(initColors(on-surface), 40%),
+    on-surface-dark: darken(initColors(on-surface), 40%),
+
+    error: initColors(error),
+    error-light: lighten(initColors(error), 40%),
+    error-dark: darken(initColors(error), 40%),
+
+    on-error: initColors(on-error),
+    on-error-light: lighten(initColors(on-error), 40%),
+    on-error-dark: darken(initColors(on-error), 40%),
+
+    transparent: rgba(0, 0, 0, 0) //
+);
+
+@function color($color-name) {
+    @return map-get($map: $color-palette, $key: $color-name);
+}
+
+@mixin npm {
+    box-sizing: border-box;
+    font-family: inherit;
+    font-weight: 400;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+@mixin cls {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: color(on-primary);
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+@mixin triangle-up {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid color(primary);
+}
+
+@mixin triangle-down {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid color(primary);
+}
+
+@mixin triangle-right {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid color(primary);
+}
+
+@mixin triangle-left {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid color(primary);
+}
+
+@mixin fancy-sub {
+    // ::after with position: relative
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: inherit;
+    transform: scaleX(0);
+    transition: transform ease-in-out 0.25s;
+    transform-origin: right;
+
+    &:hover {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+}

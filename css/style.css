@@ -1,4 +1,79 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: inherit;
+  font-weight: 400;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: #8b8b3e;
+  background: #000000;
+}
+
+div.fold-container {
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  background: white;
+}
+
+div.grid-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (160px)[auto-fit];
+      grid-template-rows: repeat(auto-fit, 160px);
+  -ms-grid-columns: (160px)[auto-fit];
+      grid-template-columns: repeat(auto-fit, 160px);
+  gap: 32px;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  padding: 120px 50px 60px;
+}
+
+div.grid-container .card {
+  cursor: pointer;
+  position: relative;
+}
+
+div.grid-container .card p {
+  font-size: 8em;
+  text-align: center;
+}
+
+div.grid-container .card svg {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+
+div.score-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 500px;
+  height: 250px;
+  border-radius: 10px;
+  background: #666666;
 }
 /*# sourceMappingURL=style.css.map */
