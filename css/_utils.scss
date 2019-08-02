@@ -17,8 +17,8 @@ $init-colors: ( //
     on-error: #FFFFFF //
 );
 
-$desktop-breakpoint: 991px;
-$tablet-breakpoint: 768px;
+$desktop-breakpoint: 992px;
+$tablet-breakpoint: 991px;
 $mobile-breakpoint: 480px;
 
 // --------------------
@@ -30,13 +30,13 @@ $mobile-breakpoint: 480px;
 }
 
 @mixin tablet {
-    @media (min-width: #{$tablet-breakpoint}) {
+    @media (max-width: #{$tablet-breakpoint}) {
         @content;
     }
 }
 
 @mixin mobile {
-    @media (min-width: #{$mobile-breakpoint}) {
+    @media (max-width: #{$mobile-breakpoint}) {
         @content;
     }
 }
@@ -176,5 +176,34 @@ $color-palette: ( //
     &:hover {
         transform: scaleX(1);
         transform-origin: left;
+    }
+}
+
+@mixin github-corner {
+
+    &:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+    }
+
+    @include mobile {
+        &:hover .octo-arm {
+            animation:none;
+        }
+
+        .octo-arm {
+            animation:octocat-wave 560ms ease-in-out;
+        }
+    }
+
+    @keyframes octocat-wave {
+        0%, 100% {
+            transform:rotate(0);
+        }
+        20%, 60% {
+            transform:rotate(-25deg);
+        }
+        40%, 80% {
+            transform:rotate(10deg);
+        }
     }
 }
