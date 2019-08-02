@@ -11,7 +11,6 @@
         type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/df5ea4d597.js"></script>
-    <script src="js/svg-inject.min.js"></script>
 </head>    
 <body>
     <!-- foldable container -->
@@ -22,21 +21,56 @@
     
     <!-- grid container -->
     <div class="container">
-        <div class="grid-container" id="grid">
-
-                <!-- replaced by JS -->
-                <div class="card" data-number="0">
-                    <p>0</p>
-                    <img src="ux/card.svg" class="square" onload="SVGInject(this)"> 
-                </div>
-                
+        <div class="grid-container" id="grid">            
         </div>
     </div>
     <!-- -------------- -->
 
     <!-- scoreboard container -->
-    <div class="score-container score-hidden" id="scoreboard"></div>
+    <div class="score-container score-hidden score-opaque" id="scoreboard">
+        <h1 class="txt-compound game-fail" data-txt="SCOREBOARD_TITLE">PASS</h1>
+
+        <div class="accuracy">
+            <ul>
+                <h2 class="txt" data-txt="ACCURACY">Accuracy</h2>
+                <li>
+                    <p class="txt" data-txt="TOTAL_CLICKS">Total Clicks</p>
+                    <p class="value" data-value="TOTAL_CLICKS">13</p>
+                </li>
+                <li>
+                    <p class="txt" data-txt="HITS">Hits</p>
+                    <p class="value" data-value="HITS">8 (61%)</p>
+                </li>
+                <li>
+                    <p class="txt" data-txt="MISSES">Misses</p>
+                    <p class="value" data-value="MISSES">5 (39%)</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="time">
+            <ul class="time">
+                <h2 class="txt" data-txt="TIME">Time</h2>
+                <li>
+                    <p class="txt" data-txt="TOTAL_TIME">Total Time</p>
+                    <p class="value" data-value="TOTAL_TIME">12.5</p>
+                </li>
+                <li>
+                    <p class="txt" data-txt="INSPECTION_TIME">Inspection Time</p>
+                    <p class="value" data-value="INSPECTION_TIME">4 (32%)</p>
+                </li>
+                <li>
+                    <p class="txt" data-txt="SOLVING_TIME">Solving Time</p>
+                    <p class="value" data-value="SOLVING_TIME">6.5 (68%)</p>
+                </li>
+            </ul>
+        </div>
+
+        <input class="showcards-btn txt" data-txt="SHOWCARDS_BTN" id="showcards_btn" type="button" value="Show Cards with Numbers">
+        <input class="retry-btn txt" data-txt="RETRY_BTN" id="retry_btn" type="button" value="Retry">
+    </div>
     <!-- -------------------- -->
 </body>
 <script src="js/app.js"></script>
+<script src="js/langs.js"></script>
 </html>

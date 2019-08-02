@@ -143,14 +143,169 @@ div.score-container {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   z-index: 1;
-  width: 500px;
-  height: 250px;
-  border-radius: 10px;
-  background: #666666;
-  -webkit-transition: -webkit-clip-path 1s ease;
-  transition: -webkit-clip-path 1s ease;
-  transition: clip-path 1s ease;
-  transition: clip-path 1s ease, -webkit-clip-path 1s ease;
+  width: 730px;
+  height: auto;
+  border-radius: 25px;
+  padding-bottom: 15px;
+  -webkit-transition: opacity 0.45s ease, -webkit-clip-path 0.4s ease-in-out;
+  transition: opacity 0.45s ease, -webkit-clip-path 0.4s ease-in-out;
+  transition: clip-path 0.4s ease-in-out, opacity 0.45s ease;
+  transition: clip-path 0.4s ease-in-out, opacity 0.45s ease, -webkit-clip-path 0.4s ease-in-out;
+  background: #FFFFFF;
+  color: #000000;
+}
+
+div.score-container h1 {
+  color: #007DDC;
+  text-align: center;
+  margin: 10px 0 0;
+  font-size: 4em;
+  font-weight: bold;
+}
+
+div.score-container h1.game-pass {
+  color: #3ECB89;
+}
+
+div.score-container h1.game-fail {
+  color: #DF4747;
+}
+
+div.score-container div.accuracy {
+  margin: 0px 25px 25px;
+  padding: 0 10px;
+  border-radius: 25px;
+}
+
+div.score-container div.accuracy ul h2 {
+  font-size: 2em;
+  text-decoration: underline;
+  font-weight: bold;
+  text-align: left;
+}
+
+div.score-container div.accuracy ul li {
+  margin-left: 15px;
+  font-size: 1.4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+div.score-container div.accuracy ul li p.value {
+  font-weight: bold;
+}
+
+div.score-container div.accuracy ul li:nth-child(2) p.txt {
+  font-weight: bold;
+}
+
+div.score-container div.accuracy ul li:nth-child(2) p.value {
+  color: #007DDC;
+}
+
+div.score-container div.accuracy ul li:nth-child(3) p.txt {
+  margin-left: 20px;
+}
+
+div.score-container div.accuracy ul li:nth-child(3) p.value {
+  color: #3ECB89;
+}
+
+div.score-container div.accuracy ul li:nth-child(4) p.txt {
+  margin-left: 20px;
+}
+
+div.score-container div.accuracy ul li:nth-child(4) p.value {
+  color: #DF4747;
+}
+
+div.score-container div.time {
+  margin: 0px 25px 25px;
+  padding: 0 10px;
+  border-radius: 25px;
+}
+
+div.score-container div.time ul h2 {
+  font-size: 2em;
+  text-decoration: underline;
+  font-weight: bold;
+  text-align: left;
+}
+
+div.score-container div.time ul li {
+  margin-left: 15px;
+  font-size: 1.4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+div.score-container div.time ul li p.value {
+  font-weight: bold;
+  color: #007DDC;
+}
+
+div.score-container div.time ul li:nth-child(2) p.txt {
+  font-weight: bold;
+}
+
+div.score-container div.time ul li:nth-child(3) p.txt {
+  margin-left: 20px;
+}
+
+div.score-container div.time ul li:nth-child(4) p.txt {
+  margin-left: 20px;
+}
+
+div.score-container .showcards-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 5px 0;
+  width: 90%;
+  height: auto;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  color: #FFFFFF;
+  background: #000000;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.7em;
+  -webkit-transition: background 0.25s ease;
+  transition: background 0.25s ease;
+}
+
+div.score-container .showcards-btn:hover {
+  background: #1a1a1a;
+}
+
+div.score-container .retry-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 5px 0;
+  width: 90%;
+  height: auto;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  color: #FFFFFF;
+  background: #000000;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.7em;
+  -webkit-transition: background 0.25s ease;
+  transition: background 0.25s ease;
+}
+
+div.score-container .retry-btn:hover {
+  background: #1a1a1a;
 }
 
 .score-hidden {
@@ -161,5 +316,21 @@ div.score-container {
 .score-visible {
   -webkit-clip-path: circle(100%);
           clip-path: circle(100%);
+}
+
+.score-opaque {
+  opacity: 1;
+}
+
+.score-transparent {
+  opacity: 0.3;
+}
+
+.game-pass {
+  color: #3ECB89;
+}
+
+.game-fail {
+  color: #DF4747;
 }
 /*# sourceMappingURL=style.css.map */

@@ -3,29 +3,63 @@
 function $(id) {return document.getElementById(id)}
 var gridElement = $('grid');
 var scoreboardElement = $('scoreboard');
+var showcards_btnElement = $('showcards_btn');
+var retry_btnElement = $('retry_btn');
 var grid = [];
 var nShuffle = [];
 var sNumbers = [];
 var playable = false;
 
 // Settings (constant! using 'var' for compatibility)
-var rows = 5;       // responsive scalar
-var cols = 9;       // responsive scalar
-var timeout = 1;    // if 0 no timeout
-var numbers = 9;    // min 1 max rows*cols
-var lifes = 1;      // if 0 no lifes
+var rows = 5;           // responsive scalar
+var cols = 9;           // responsive scalar
+var timeout = 1;        // if 0 no timeout
+var numbers = 9;        // min 1 max rows*cols
+var lifes = 1;          // if 0 no lifes
+var language = 'es';
 // --------
 var misses = 0;
+var hits = 0;
+var total_time = {
+    start: 0,
+    end: 0,
+    inspection_time: {
+        start: 0,
+        end: 0
+    }
+};
+
 
 window.addEventListener('load', () => {
+    initLang(language);
     initCards(rows, cols);
     shuffleCards(rows, cols);
-    playable = true;
-    misses = 0;
+    restart();
+});
+
+
+showcards_btnElement.addEventListener('click', () => {
+
+    var toggle = scoreboardElement.classList.contains('score-opaque');
+
+    for(var i = 0; i < sNumbers.length; i++) {
+        var i_index = Math.floor((sNumbers[i]-1)/cols);
+        var j_index = sNumbers[i] - i_index*cols - 1;
+        grid[i_index][j_index].element.lastElementChild.classList.remove((toggle ? 'visible' : 'hidden'));
+        grid[i_index][j_index].element.lastElementChild.classList.add((toggle ? 'hidden' : 'visible'));
+    }
+ 
+    scoreboardElement.classList.remove((toggle ? 'score-opaque' : 'score-transparent'));
+    scoreboardElement.classList.add((toggle ? 'score-transparent' : 'score-opaque'));
+});
+
+retry_btnElement.addEventListener('click', () => {
+    restart();
 });
 
 function cardClick() {
     if(playable) {
+        if(hits + misses === 0) total_time.inspection_time.end = new Date();
         if(this.dataset.number == sNumbers[sNumbers.length-1]) {
             if(this.lastElementChild.classList[0] === 'hidden') {
                 for(var i = 0; i < sNumbers.length; i++) {
@@ -41,7 +75,7 @@ function cardClick() {
                 this.lastElementChild.classList.add('hidden');
             }
             sNumbers.pop();
-    
+            hits++;
             if(sNumbers.length === 0) won();
     
         } else lost();
@@ -50,33 +84,95 @@ function cardClick() {
     }
 }
 
+function restart() {
+    
+    misses = 0;
+    hits = 0;
+
+    scoreboardElement.classList.remove('score-visible');
+    scoreboardElement.classList.add('score-hidden');
+    scoreboardElement.classList.remove('score-transparent');
+    scoreboardElement.classList.add('score-opaque');
+
+    shuffleCards(rows, cols);
+
+    playable = true;
+    total_time.start = new Date();
+    total_time.inspection_time.start = total_time.start;
+}
+
 function won() {
+    total_time.end = new Date();
     console.log('win');
+
     playable = false;
-    showScoreboard();
-    // --
+    showScoreboard(true);
 }
 
 function lost() {
-    console.log('lost');
+    console.log('miss');
     misses++;
+
     if(!(playable = misses < lifes)) {
-        showScoreboard();
-    } 
-    // --
+        total_time.end = new Date();
+        showScoreboard(false);
+    }
 }
 
-function showScoreboard() {
+function showScoreboard(pass) {
+    var texts = document.getElementsByClassName('txt-compound');
+    var values = document.getElementsByClassName('value');
+    var ind = (pass ? 0 : 1);
+    try {
+        for(var i = 0; i < texts.length; i++) {
+            switch (texts[i].dataset.txt) {
+                case 'SCOREBOARD_TITLE':
+                        texts[i].classList.remove((pass ? 'game-fail' : 'game-pass'));
+                        texts[i].classList.add((pass ? 'game-pass' : 'game-fail'));
+                    break;
+                default:
+                    break;
+            }
+            texts[i].innerText = languages[language][texts[i].dataset.txt][ind];
+            texts[i].value = languages[language][texts[i].dataset.txt][ind];
+        }
 
-    // do smth
-
+        for(var i = 0; i < values.length; i++) {
+            switch (values[i].dataset.value) {
+                case 'TOTAL_CLICKS':
+                    values[i].innerText = hits+misses;
+                    values[i].value = hits+misses;
+                    break;
+                case 'HITS':
+                    values[i].innerText = `${hits} (${((hits/(hits+misses))*100).toFixed(2)}%)`;
+                    values[i].value = `${hits} (${((hits/(hits+misses))*100).toFixed(2)}%)`;
+                    break;
+                case 'MISSES':
+                    values[i].innerText = `${misses} (${((misses/(hits+misses))*100).toFixed(2)}%)`;
+                    values[i].value = `${misses} (${((misses/(hits+misses))*100).toFixed(2)}%)`;
+                    break;
+                case 'TOTAL_TIME':
+                    values[i].innerText = `${(total_time.end - total_time.start)/1000} s`;
+                    values[i].value =  `${(total_time.end - total_time.start)/1000} s`;
+                    break;
+                case 'INSPECTION_TIME':
+                    values[i].innerText =  `${(total_time.inspection_time.end - total_time.inspection_time.start)/1000} s`;
+                    values[i].value =  `${(total_time.inspection_time.end - total_time.inspection_time.start)/1000} s`;
+                    break;
+                case 'SOLVING_TIME':
+                    values[i].innerText = `${((total_time.end - total_time.start)-(total_time.inspection_time.end - total_time.inspection_time.start))/1000} s`;
+                    values[i].value = `${((total_time.end - total_time.start)-(total_time.inspection_time.end - total_time.inspection_time.start))/1000} s`;
+                    break;
+                default:
+                    break;
+            }
+        }
+    } catch (error) {
+       console.error(error); 
+    }
+    
     scoreboardElement.classList.remove('score-hidden');
     scoreboardElement.classList.add('score-visible');
-}
-
-function hideScoreboard() {
-    scoreboardElement.classList.remove('score-visible');
-    scoreboardElement.classList.add('score-hidden');
 }
 
 function shuffleCards(rows, cols) {
@@ -136,3 +232,15 @@ function shuffleArray(o) {
     for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 };
+
+function initLang(language) {
+    var texts = document.getElementsByClassName('txt');
+    try {
+        for(var i = 0; i < texts.length; i++) {
+            texts[i].innerText = languages[language][texts[i].dataset.txt];
+            texts[i].value = languages[language][texts[i].dataset.txt];
+        }
+    } catch (error) {
+       console.error(error); 
+    }
+}

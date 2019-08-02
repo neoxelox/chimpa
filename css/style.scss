@@ -71,7 +71,6 @@ div.grid-container {
     display: block;
     // card miss do something
 }
-
 // -----
 
 div.score-container {
@@ -81,13 +80,174 @@ div.score-container {
     transform: translate(-50%,-50%);
     z-index: 1;
 
-    width: 500px;
-    height: 250px;
-    border-radius: 10px;
+    width: 730px;
+    height: auto;
+    border-radius: 25px; 
+    padding-bottom: 15px;
 
-    background: color(on-background-light);
+    transition: clip-path 0.4s ease-in-out, opacity 0.45s ease;
     
-    transition: clip-path 1s ease;
+    background: color(background);
+    color: color(on-background);
+
+    h1 {
+       color: color(primary-variant); 
+       text-align: center;
+       margin: 10px 0 0;
+       font-size: 4em;
+       font-weight: bold;
+
+       &.game-pass {
+            color: color(secondary-variant);
+       }
+
+       &.game-fail {
+        color: color(error);
+        }
+
+    }
+
+    div.accuracy {
+        margin: 0px 25px 25px;
+        padding: 0 10px;
+        border-radius: 25px;
+
+        ul {
+
+            h2 {
+                font-size: 2em;
+                text-decoration: underline;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            li {
+                margin-left: 15px;
+                font-size: 1.4em;
+                display: flex;
+                justify-content: space-between;
+                
+                p.value {
+                    font-weight: bold;
+                }
+            }
+
+            li:nth-child(2) {
+                p.txt {
+                    font-weight: bold;
+                }
+                p.value {
+                    color: color(primary-variant);
+                }
+            }
+
+            li:nth-child(3) {
+                p.txt {
+                    margin-left: 20px;
+                }
+                p.value {
+                    color: color(secondary-variant);
+                }
+            }
+
+            li:nth-child(4) {
+                p.txt {
+                    margin-left: 20px;
+                }
+                p.value {
+                    color: color(error);
+                }
+            }
+        }
+    }
+
+    div.time {
+        margin: 0px 25px 25px;
+        padding: 0 10px;
+        border-radius: 25px;
+
+        ul {
+
+            h2 {
+                font-size: 2em;
+                text-decoration: underline;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            li {
+                margin-left: 15px;
+                font-size: 1.4em;
+                display: flex;
+                justify-content: space-between;
+                
+                p.value {
+                    font-weight: bold;
+                    color: color(primary-variant);
+                }
+            }
+
+            li:nth-child(2) {
+                p.txt {
+                    font-weight: bold;
+                }
+            }
+
+            li:nth-child(3) {
+                p.txt {
+                    margin-left: 20px;
+                }
+            }
+
+            li:nth-child(4) {
+                p.txt {
+                    margin-left: 20px;
+                }
+            }
+        }
+    }
+
+    .showcards-btn {
+        display: block;
+        margin: 0 auto;
+        padding: 5px 0;
+        width: 90%;
+        height: auto;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        color: color(background);
+        background: color(on-background);
+        border: none;
+        border-radius: 25px;
+        font-size: 1.7em;
+        transition: background 0.25s ease;
+
+        &:hover {
+            background: lighten(color(on-background), 10%);
+        }
+    }
+
+    .retry-btn {
+        display: block;
+        margin: 10px auto;
+        padding: 5px 0;
+        width: 90%;
+        height: auto;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        color: color(background);
+        background: color(on-background);
+        border: none;
+        border-radius: 25px;
+        font-size: 1.7em;
+        transition: background 0.25s ease;
+
+        &:hover {
+            background: lighten(color(on-background), 10%);
+        }
+    }
 }
 
 .score-hidden {
@@ -96,4 +256,20 @@ div.score-container {
 
 .score-visible {
     clip-path: circle(100%);
+}
+
+.score-opaque {
+    opacity: 1;
+}
+
+.score-transparent {
+    opacity: 0.3;
+}
+
+.game-pass {
+    color: color(secondary-variant);
+}
+
+.game-fail {
+    color: color(error);
 }
