@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:700,900&display=swap");
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -42,9 +43,22 @@ div.fold-container {
   top: 0%;
   right: 0%;
   z-index: 1;
-  width: 80px;
-  height: 80px;
-  background: transparent;
+  width: 320px;
+  height: auto;
+  border-radius: 25px;
+  background: #000000;
+  color: #FFFFFF;
+  -webkit-transition: -webkit-clip-path 0.45s ease-in-out;
+  transition: -webkit-clip-path 0.45s ease-in-out;
+  transition: clip-path 0.45s ease-in-out;
+  transition: clip-path 0.45s ease-in-out, -webkit-clip-path 0.45s ease-in-out;
+  -webkit-clip-path: circle(23% at 100% 0%);
+          clip-path: circle(23% at 100% 0%);
+}
+
+div.fold-container:hover {
+  -webkit-clip-path: circle(100%);
+          clip-path: circle(100%);
 }
 
 div.fold-container .github-corner:hover .octo-arm {
@@ -91,6 +105,81 @@ div.fold-container .github-corner:hover .octo-arm {
     -webkit-transform: rotate(10deg);
             transform: rotate(10deg);
   }
+}
+
+div.fold-container h1 {
+  margin-top: 5px;
+  width: 83%;
+  text-align: center;
+  font-size: 3em;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+div.fold-container h3 {
+  width: 93%;
+  text-align: center;
+  font-size: 1em;
+}
+
+div.fold-container h3 i {
+  color: #e74c3c;
+}
+
+div.fold-container h3 i::before {
+  font-weight: 900;
+}
+
+div.fold-container h3 span {
+  text-decoration: underline;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+div.fold-container div.settings {
+  color: #FFFFFF;
+}
+
+div.fold-container div.settings input {
+  color: #FFFFFF;
+  background: none;
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+  padding: 5px 0px;
+  width: 80%;
+  margin: 10px auto 0;
+  display: block;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+div.fold-container div.settings .dropdown {
+  margin: 10px 32px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+div.fold-container div.settings .dropdown p {
+  padding: 7px 0;
+}
+
+div.fold-container div.settings .dropdown select {
+  cursor: pointer;
+  background: none;
+  border: 2px solid #FFFFFF;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 3px;
+}
+
+div.fold-container div.settings .dropdown select option {
+  background: #000000;
+  border: none;
 }
 
 div.grid-container {
@@ -156,7 +245,7 @@ div.score-container {
 }
 
 div.score-container h1 {
-  color: #007DDC;
+  color: #2980b9;
   text-align: center;
   margin: 10px 0 0;
   font-size: 4em;
@@ -164,11 +253,11 @@ div.score-container h1 {
 }
 
 div.score-container h1.game-pass {
-  color: #3ECB89;
+  color: #1abc9c;
 }
 
 div.score-container h1.game-fail {
-  color: #DF4747;
+  color: #e74c3c;
 }
 
 div.score-container div.accuracy {
@@ -204,7 +293,7 @@ div.score-container div.accuracy ul li:nth-child(2) p.txt {
 }
 
 div.score-container div.accuracy ul li:nth-child(2) p.value {
-  color: #007DDC;
+  color: #2980b9;
 }
 
 div.score-container div.accuracy ul li:nth-child(3) p.txt {
@@ -212,7 +301,7 @@ div.score-container div.accuracy ul li:nth-child(3) p.txt {
 }
 
 div.score-container div.accuracy ul li:nth-child(3) p.value {
-  color: #3ECB89;
+  color: #1abc9c;
 }
 
 div.score-container div.accuracy ul li:nth-child(4) p.txt {
@@ -220,7 +309,7 @@ div.score-container div.accuracy ul li:nth-child(4) p.txt {
 }
 
 div.score-container div.accuracy ul li:nth-child(4) p.value {
-  color: #DF4747;
+  color: #e74c3c;
 }
 
 div.score-container div.time {
@@ -249,7 +338,7 @@ div.score-container div.time ul li {
 
 div.score-container div.time ul li p.value {
   font-weight: bold;
-  color: #007DDC;
+  color: #2980b9;
 }
 
 div.score-container div.time ul li:nth-child(2) p.txt {
@@ -327,10 +416,10 @@ div.score-container .retry-btn:hover {
 }
 
 .game-pass {
-  color: #3ECB89;
+  color: #1abc9c;
 }
 
 .game-fail {
-  color: #DF4747;
+  color: #e74c3c;
 }
 /*# sourceMappingURL=style.css.map */

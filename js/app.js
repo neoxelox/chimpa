@@ -5,6 +5,13 @@ var gridElement = $('grid');
 var scoreboardElement = $('scoreboard');
 var showcards_btnElement = $('showcards_btn');
 var retry_btnElement = $('retry_btn');
+
+var timeoutElement = $('timeout');
+var numbersElement = $('numbers');
+var lifesElement = $('lifes');
+var languageElement = $('language');
+var restartkeyElement = $('restartKey');
+
 var grid = [];
 var nShuffle = [];
 var sNumbers = [];
@@ -13,10 +20,11 @@ var playable = false;
 // Settings (constant! using 'var' for compatibility)
 var rows = 5;           // responsive scalar
 var cols = 9;           // responsive scalar
-var timeout = 1;        // if 0 no timeout
+var timeout = 0;        // if 0 no timeout
 var numbers = 9;        // min 1 max rows*cols
 var lifes = 1;          // if 0 no lifes
-var language = 'es';
+var language = 'en';
+var restartKey = 'Enter';
 // --------
 var misses = 0;
 var hits = 0;
@@ -28,15 +36,31 @@ var total_time = {
         end: 0
     }
 };
+var pass = false;
+var timeoutFired = false;
+var timer;
 
 
 window.addEventListener('load', () => {
+    initLanguages();
     initLang(language);
     initCards(rows, cols);
-    shuffleCards(rows, cols);
     restart();
 });
 
+window.addEventListener("keydown", function (event) {
+    if (event.defaultPrevented) {
+      return;
+    }
+    switch (event.key) {
+      case restartKey:
+            restart();
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+}, true);
 
 showcards_btnElement.addEventListener('click', () => {
 
@@ -59,7 +83,7 @@ retry_btnElement.addEventListener('click', () => {
 
 function cardClick() {
     if(playable) {
-        if(hits + misses === 0) total_time.inspection_time.end = new Date();
+        if(!timeoutFired) {total_time.inspection_time.end = new Date(); timeoutFired = true;}
         if(this.dataset.number == sNumbers[sNumbers.length-1]) {
             if(this.lastElementChild.classList[0] === 'hidden') {
                 for(var i = 0; i < sNumbers.length; i++) {
@@ -86,6 +110,7 @@ function cardClick() {
 
 function restart() {
     
+    pass = false;
     misses = 0;
     hits = 0;
 
@@ -97,6 +122,7 @@ function restart() {
     shuffleCards(rows, cols);
 
     playable = true;
+    timeoutFunction();
     total_time.start = new Date();
     total_time.inspection_time.start = total_time.start;
 }
@@ -104,9 +130,9 @@ function restart() {
 function won() {
     total_time.end = new Date();
     console.log('win');
-
+    pass = true;
     playable = false;
-    showScoreboard(true);
+    showScoreboard(pass);
 }
 
 function lost() {
@@ -115,7 +141,8 @@ function lost() {
 
     if(!(playable = misses < lifes)) {
         total_time.end = new Date();
-        showScoreboard(false);
+        pass = false;
+        showScoreboard(pass);
     }
 }
 
@@ -234,13 +261,89 @@ function shuffleArray(o) {
 };
 
 function initLang(language) {
+    var dropLangElement = $('language');
+    dropLangElement.value = languages[language].__name;
     var texts = document.getElementsByClassName('txt');
     try {
         for(var i = 0; i < texts.length; i++) {
-            texts[i].innerText = languages[language][texts[i].dataset.txt];
-            texts[i].value = languages[language][texts[i].dataset.txt];
+            if(texts[i].placeholder != undefined && texts[i].placeholder != '') {
+                texts[i].placeholder = languages[language][texts[i].dataset.txt];
+            } else {
+                texts[i].innerText = languages[language][texts[i].dataset.txt];
+                texts[i].value = languages[language][texts[i].dataset.txt];
+            }
         }
+
+        var texts = document.getElementsByClassName('txt-compound');
+        var ind = (pass ? 0 : 1);
+        
+        for(var i = 0; i < texts.length; i++) {
+            switch (texts[i].dataset.txt) {
+                case 'SCOREBOARD_TITLE':
+                        texts[i].classList.remove((pass ? 'game-fail' : 'game-pass'));
+                        texts[i].classList.add((pass ? 'game-pass' : 'game-fail'));
+                    break;
+                default:
+                    break;
+            }
+            texts[i].innerText = languages[language][texts[i].dataset.txt][ind];
+            texts[i].value = languages[language][texts[i].dataset.txt][ind];
+        }
+
     } catch (error) {
        console.error(error); 
     }
 }
+
+function initLanguages() {
+    var dropLangElement = $('language');
+    dropLangElement.innerHTML = '';
+    var langKeys = Object.keys(languages);
+    
+    for(var lang of langKeys) {
+        dropLangElement.innerHTML += `
+            <option data-value="${lang}">${languages[lang].__name}</option>
+        `;
+    }
+}
+
+languageElement.addEventListener('change', () => {
+    language = languageElement.selectedOptions[0].dataset.value;
+    initLang(language);
+});
+
+restartkeyElement.addEventListener('change', () => {
+    restartKey = restartkeyElement.selectedOptions[0].dataset.value;
+});
+
+timeoutElement.addEventListener('input', () => {
+    timeout = timeoutElement.value;
+});
+
+numbersElement.addEventListener('input', () => {
+    numbers = numbersElement.value;
+    numbersElement.max = rows*cols;
+});
+
+lifesElement.addEventListener('input', () => {
+    lifes = lifesElement.value;
+});
+
+function timeoutFunction() {
+    clearTimeout(timer);
+    timeoutFired = false;
+    if(timeout > 0) {
+        timer = setTimeout(() => {
+                        if(playable && !timeoutFired) {
+                            total_time.inspection_time.end = new Date();
+                            timeoutFired = true;
+                            for(var i = 0; i < sNumbers.length; i++) {
+                                var i_index = Math.floor((sNumbers[i]-1)/cols);
+                                var j_index = sNumbers[i] - i_index*cols - 1;
+                                grid[i_index][j_index].element.lastElementChild.classList.remove('hidden');
+                                grid[i_index][j_index].element.lastElementChild.classList.add('visible');
+                            }
+                        }
+        }, timeout*1000);
+    }
+} 
