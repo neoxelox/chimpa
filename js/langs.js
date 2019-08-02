@@ -43,7 +43,7 @@ var languages = {
         // Scoreboard
         SCOREBOARD_TITLE: [
             "SUPERADO",
-            "FRACASADO"
+            "FRACASO"
         ],
         ACCURACY: "Precisión",
         TOTAL_CLICKS: "Clics Totales",
@@ -80,7 +80,7 @@ var languages = {
         // Scoreboard
         SCOREBOARD_TITLE: [
             "SUPERAT",
-            "FRACASAT"
+            "FRACÀS"
         ],
         ACCURACY: "Precisió",
         TOTAL_CLICKS: "Clics Totals",
