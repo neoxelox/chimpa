@@ -8,7 +8,7 @@ Although Chimpa has few text, it does have an easy expandable language system. I
 ### Contributors:
 -   **English**: Me (🤣)
 -   **Spanish**: Also Me
--   **Cataln**: Aaand Me
+-   **Catalan**: Aaand Me
 
 #### TODO:
 (It does only support desktop views, responsive view after holidays... 🏕)
