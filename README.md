@@ -1,10 +1,8 @@
 # Chimpa 🐵
 
-<img align="left" width="100" height="100" src="https://chimpa.arn.sh/res/chimpa.png">
-
 **`A simple port of the short-memory game used in Kyoto's University Primate Research Center with Chimpanzees, which I saw in MIND FIELD T3 • E1 of Vsauce.`** - [**`chimpa.arn.sh`**](https://chimpa.arn.sh) 🚀
 
-&nbsp;
+![Banner](./res/banner.png "Banner")
 
 > _**Note: this app was a pet project for personal use and was never intended to run correctly on mobile, use it only on desktop.**_
 

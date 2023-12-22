@@ -362,17 +362,18 @@ div.score-container .showcards-btn {
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  color: #FFFFFF;
-  background: #000000;
-  border: none;
+  color: #000000;
+  background: #FFFFFF;
+  border: 3px #000000 solid;
   border-radius: 25px;
   font-size: 1.7em;
-  -webkit-transition: background 0.25s ease;
-  transition: background 0.25s ease;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 div.score-container .showcards-btn:hover {
-  background: #1a1a1a;
+  color: #FFFFFF;
+  background: #333333;
 }
 
 div.score-container .retry-btn {
@@ -394,7 +395,7 @@ div.score-container .retry-btn {
 }
 
 div.score-container .retry-btn:hover {
-  background: #1a1a1a;
+  background: #333333;
 }
 
 .score-hidden {

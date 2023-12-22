@@ -296,15 +296,16 @@ div.score-container {
         text-decoration: none;
         text-align: center;
         cursor: pointer;
-        color: color(background);
-        background: color(on-background);
-        border: none;
+        color: color(on-background);
+        background: color(background);
+        border: 3px color(on-background) solid;
         border-radius: 25px;
         font-size: 1.7em;
-        transition: background 0.25s ease;
+        transition: all 0.25s ease;
 
         &:hover {
-            background: lighten(color(on-background), 10%);
+            color: color(background);
+            background: lighten(color(on-background), 20%);
         }
     }
 
@@ -325,7 +326,7 @@ div.score-container {
         transition: background 0.25s ease;
 
         &:hover {
-            background: lighten(color(on-background), 10%);
+            background: lighten(color(on-background), 20%);
         }
     }
 }
